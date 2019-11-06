@@ -2,6 +2,7 @@ package com.thetestroom;
 
 import io.restassured.RestAssured;
 import io.restassured.http.Header;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Before;
 import org.junit.Test;
@@ -133,6 +134,12 @@ public class PersonControllerTest {
                 .then()
                 .assertThat()
                 .header("headerKey", is("headerValue"));
+    }
+
+    @Test
+    public void getJsonForHey() {
+        JsonPath jsonPath = get("/hey?name=magic").thenReturn().jsonPath();
+        assertThat(jsonPath.get("name"), is("magic"));
     }
 
     @Test
