@@ -43,7 +43,7 @@ public class PersonControllerTest {
     }
 
     @Test
-    public void shouldGetCorrectResultWhenPassingInParameterInUrlForHey() {
+    public void shouldGetCorrectResultWhenPassingUsingParamForHey() {
         with()
                 .param("name", "billy")
                 .when()
@@ -51,6 +51,27 @@ public class PersonControllerTest {
                 .then()
                 .assertThat()
                 .body("name", is("billy"));
+    }
+
+    @Test
+    public void shouldGetCorrectResultWhenPassingUsingPathParamForHey() {
+        given()
+                .pathParam("name", "bobby")
+                .when()
+                .request("GET", "hey?name={name}")
+                .then()
+                .assertThat()
+                .body("name", is("bobby"));
+    }
+
+    @Test
+    public void shouldGetCorrectResultWhenPassingUsingQueryParamForHey() {
+        given()
+                .queryParam("name", "barry")
+                .get("/hey")
+                .then()
+                .assertThat()
+                .body("name", is("barry"));
     }
 
     @Test
