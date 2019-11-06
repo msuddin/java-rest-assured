@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "age": {
+      "type": "integer"
+    },
+    "pets": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "petType": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "petType",
+            "name"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "petType": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "petType",
+            "name"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "petType": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "petType",
+            "name"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "name",
+    "age",
+    "pets"
+  ]
+}

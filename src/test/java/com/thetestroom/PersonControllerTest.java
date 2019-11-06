@@ -15,10 +15,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static io.restassured.RestAssured.*;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.Is.is;
@@ -50,7 +50,8 @@ public class PersonControllerTest {
                 .request("GET","hey")
                 .then()
                 .assertThat()
-                .body("name", is("billy"));
+                .body("name", is("billy"))
+                .body("name", equalTo("billy"));
     }
 
     @Test
@@ -102,6 +103,17 @@ public class PersonControllerTest {
                 .asString();
         assertThat(response, containsString("\"name\":\"James Gorden\""));
         assertThat(response, containsString("\"age\":35"));
+    }
+
+    @Test
+    public void shouldValidatePersonEndpointWithJsonSchema() {
+        given()
+                .contentType("application/json")
+                .body(new Person("James Gorden", 36))
+                .post("/person")
+                .then()
+                .assertThat()
+                .body(matchesJsonSchemaInClasspath("person.json"));
     }
 
     @Test

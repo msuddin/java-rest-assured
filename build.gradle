@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web:2.1.5.RELEASE'
+    compile 'io.rest-assured:json-schema-validator:3.0.0'
 
     testCompile 'org.hamcrest:hamcrest-all:1.3'
     testCompile 'junit:junit:4.12'
