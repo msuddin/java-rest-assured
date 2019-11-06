@@ -1,9 +1,13 @@
 package com.thetestroom;
 
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.Header;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -119,12 +123,41 @@ public class PersonControllerTest {
     }
 
     @Test
+    public void shouldBeAbleToSetCookieAndHeaderUsingRequestSpecification() {
+        RequestSpecification requestSpecification = new RequestSpecBuilder()
+                .addCookie("personaCookie")
+                .addHeader("persona1", "value1")
+                .setContentType("application/json")
+                .setBody(new Persona("darkSide"))
+                .build();
+
+        given()
+                .spec(requestSpecification)
+                .when()
+                .request("POST", "/persona")
+                .then()
+                .assertThat()
+                .body("persona", is("darkSide"));
+    }
+
+    @Test
     public void checkCookieKeyAndValue() {
         given()
                 .get("/cookieTest")
                 .then()
                 .assertThat()
                 .cookie("cookieKey", is("cookieValue"));
+    }
+
+    @Test
+    public void checkCookieKeyAndValueWithResponseSpecification() {
+        ResponseSpecification responseSpecification = new ResponseSpecBuilder().expectCookie("cookieKey").build();
+
+        given()
+                .get("/cookieTest")
+                .then()
+                .assertThat()
+                .spec(responseSpecification);
     }
 
     @Test
