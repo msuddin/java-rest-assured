@@ -208,7 +208,8 @@ public class PersonControllerTest {
     @Test
     /*Using response specification to build a spec for then()*/
     public void checkCookieKeyAndValueWithResponseSpecification() {
-        ResponseSpecification responseSpecification = new ResponseSpecBuilder().expectCookie("cookieKey").build();
+        ResponseSpecification responseSpecification = new ResponseSpecBuilder()
+                .expectCookie("cookieKey").build();
 
         given()
                 .get("/cookieTest")
