@@ -1,6 +1,7 @@
 package com.thetestroom;
 
 import io.restassured.RestAssured;
+import io.restassured.http.Header;
 import io.restassured.response.Response;
 import org.junit.Before;
 import org.junit.Test;
@@ -102,9 +103,10 @@ public class PersonControllerTest {
     }
 
     @Test
-    public void shouldBeAbleToSetCookie() {
+    public void shouldBeAbleToSetCookieAndHeader() {
         given()
-                .cookie("personaCookie", "some")
+                .cookie("personaCookie")
+                .header(new Header("persona1", "value1"))
                 .contentType("application/json")
                 .body(new Persona("darkSide"))
                 .when()
