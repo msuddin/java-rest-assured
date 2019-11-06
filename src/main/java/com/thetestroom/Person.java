@@ -1,13 +1,19 @@
 package com.thetestroom;
 
+import java.util.ArrayList;
+
 public class Person {
     private String name;
     private int age;
-    public Person() {}
+    private ArrayList<Pet> pets = new ArrayList<Pet>();
 
+    public Person() {}
     public Person(String name, int age) {
         this.name = name;
         this.age = age;
+        pets.add(new Pet("cat", "spike"));
+        pets.add(new Pet("cat", "sparky"));
+        pets.add(new Pet("dog", "dino"));
     }
 
     public String getName() {
@@ -24,5 +30,13 @@ public class Person {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public ArrayList<Pet> getPets() {
+        return this.pets;
+    }
+
+    public void setPets(ArrayList<Pet> pets) {
+        this.pets = pets;
     }
 }

@@ -36,6 +36,17 @@ public class PersonControllerTest {
     }
 
     @Test
+    public void shouldGetCorrectResultWhenPassingInParameterInUrlForHey() {
+        with()
+                .param("name", "billy")
+                .when()
+                .request("GET","hey")
+                .then()
+                .assertThat()
+                .body("name", is("billy"));
+    }
+
+    @Test
     public void shouldGetContentForHi() {
         String response = get("hi/jimmy")
                 .then()
@@ -63,6 +74,18 @@ public class PersonControllerTest {
                 .asString();
         assertThat(response, containsString("\"name\":\"James Gorden\""));
         assertThat(response, containsString("\"age\":35"));
+    }
+
+    @Test
+    public void shouldGetListOfPets() {
+        given()
+                .contentType("application/json")
+                .body(new Person("Jack", 22))
+                .when()
+                .request("POST", "/person")
+                .then()
+                .assertThat()
+                .body("pets.petType", hasItems("cat", "dog"));
     }
 
     @Test
