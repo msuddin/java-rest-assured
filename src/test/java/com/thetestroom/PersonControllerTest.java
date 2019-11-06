@@ -97,7 +97,21 @@ public class PersonControllerTest {
                 .then()
                 .assertThat()
                 .body("name", is("Gothem"))
-                .body("age", is(1000));
+                .body("age", is(1000))
+                .contentType("application/json");
+    }
+
+    @Test
+    public void shouldBeAbleToSetCookie() {
+        given()
+                .cookie("personaCookie", "some")
+                .contentType("application/json")
+                .body(new Persona("darkSide"))
+                .when()
+                .request("POST", "/persona")
+                .then()
+                .assertThat()
+                .body("persona", is("darkSide"));
     }
 
     @Test

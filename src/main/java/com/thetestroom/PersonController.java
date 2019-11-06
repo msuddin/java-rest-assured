@@ -20,4 +20,9 @@ public class PersonController {
         return new Person(persons.getName(), persons.getAge());
     }
 
+    @RequestMapping(value = "/persona", method = RequestMethod.POST, consumes="application/json", produces = "application/json")
+    public Persona persona(@CookieValue("personaCookie") String personaCookie, @RequestBody Persona persons) {
+        return new Persona(persons.getPersona());
+    }
+
 }
