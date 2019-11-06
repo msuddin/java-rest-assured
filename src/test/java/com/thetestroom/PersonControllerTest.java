@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static io.restassured.RestAssured.*;
@@ -114,6 +115,24 @@ public class PersonControllerTest {
                 .then()
                 .assertThat()
                 .body("persona", is("darkSide"));
+    }
+
+    @Test
+    public void checkCookieKeyAndValue() {
+        given()
+                .get("/cookieTest")
+                .then()
+                .assertThat()
+                .cookie("cookieKey", is("cookieValue"));
+    }
+
+    @Test
+    public void checkHeaderKeyAndValue() {
+        given()
+                .get("/headerTest")
+                .then()
+                .assertThat()
+                .header("headerKey", is("headerValue"));
     }
 
     @Test

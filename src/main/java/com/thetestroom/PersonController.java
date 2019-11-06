@@ -1,6 +1,11 @@
 package com.thetestroom;
 
+import com.sun.net.httpserver.Headers;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class PersonController {
@@ -29,6 +34,18 @@ public class PersonController {
     )
     public Persona persona(@CookieValue("personaCookie") String personaCookie, @RequestBody Persona persons) {
         return new Persona(persons.getPersona());
+    }
+
+    @RequestMapping("/cookieTest")
+    public String getTestCookie(HttpServletResponse response) {
+        response.addCookie(new Cookie("cookieKey", "cookieValue"));
+        return "cookie test";
+    }
+
+    @RequestMapping("/headerTest")
+    public String getTestHeader(HttpServletResponse response) {
+        response.addHeader("headerKey", "headerValue");
+        return "header test";
     }
 
 }
