@@ -36,6 +36,7 @@ public class PersonControllerTest {
     }
 
     @Test
+    /*Asserting on status code with simple get(), then()*/
     public void shouldGetStatusForHi() {
         get("/hi/billy")
                 .then()
@@ -43,6 +44,7 @@ public class PersonControllerTest {
     }
 
     @Test
+    /*Passing in parameters using with()*/
     public void shouldGetCorrectResultWhenPassingUsingParamForHey() {
         with()
                 .param("name", "billy")
@@ -55,6 +57,7 @@ public class PersonControllerTest {
     }
 
     @Test
+    /*Passing in parameters using pathParam using given()*/
     public void shouldGetCorrectResultWhenPassingUsingPathParamForHey() {
         given()
                 .pathParam("name", "bobby")
@@ -66,6 +69,7 @@ public class PersonControllerTest {
     }
 
     @Test
+    /*Passing in parameters using queryParam using given()*/
     public void shouldGetCorrectResultWhenPassingUsingQueryParamForHey() {
         given()
                 .queryParam("name", "barry")
@@ -76,6 +80,7 @@ public class PersonControllerTest {
     }
 
     @Test
+    /*Extracting response as a string and asserting on it*/
     public void shouldGetContentForHi() {
         String response = get("hi/jimmy")
                 .then()
@@ -85,6 +90,7 @@ public class PersonControllerTest {
     }
 
     @Test
+    /*Setting contentType and setting body as part of given()*/
     public void shouldGetStatusForPerson() {
         given().contentType("application/json")
                 .body(new Person("Robin", 25))
@@ -95,6 +101,7 @@ public class PersonControllerTest {
     }
 
     @Test
+    /*Extracting a post and performing multiple assertions*/
     public void shouldGetCorrectBodyResponseFromPersonAndAssertAsString() {
         String response = given()
                 .contentType("application/json")
@@ -106,6 +113,7 @@ public class PersonControllerTest {
     }
 
     @Test
+    /*Performing json schema validation*/
     public void shouldValidatePersonEndpointWithJsonSchema() {
         given()
                 .contentType("application/json")
@@ -117,6 +125,7 @@ public class PersonControllerTest {
     }
 
     @Test
+    /*Asserting on arrays which are returned as part of a request*/
     public void shouldGetListOfPets() {
         given()
                 .contentType("application/json")
@@ -129,6 +138,7 @@ public class PersonControllerTest {
     }
 
     @Test
+    /*Asserting on the content type and json parts individually*/
     public void shouldGetCorrectBodyResponseFromPersonAndAssertAsJsonParts() {
         given().contentType("application/json")
                 .body(new Person("Gothem", 1000))
@@ -142,6 +152,7 @@ public class PersonControllerTest {
     }
 
     @Test
+    /*Setting cookie and headers as part of the given()*/
     public void shouldBeAbleToSetCookieAndHeader() {
         given()
                 .cookie("personaCookie")
@@ -156,6 +167,27 @@ public class PersonControllerTest {
     }
 
     @Test
+    /*Asserting on cookies*/
+    public void checkCookieKeyAndValue() {
+        given()
+                .get("/cookieTest")
+                .then()
+                .assertThat()
+                .cookie("cookieKey", is("cookieValue"));
+    }
+
+    @Test
+    /*Asserting on headers*/
+    public void checkHeaderKeyAndValue() {
+        given()
+                .get("/headerTest")
+                .then()
+                .assertThat()
+                .header("headerKey", is("headerValue"));
+    }
+
+    @Test
+    /*Using request specification to build a spec for given()*/
     public void shouldBeAbleToSetCookieAndHeaderUsingRequestSpecification() {
         RequestSpecification requestSpecification = new RequestSpecBuilder()
                 .addCookie("personaCookie")
@@ -174,15 +206,7 @@ public class PersonControllerTest {
     }
 
     @Test
-    public void checkCookieKeyAndValue() {
-        given()
-                .get("/cookieTest")
-                .then()
-                .assertThat()
-                .cookie("cookieKey", is("cookieValue"));
-    }
-
-    @Test
+    /*Using response specification to build a spec for then()*/
     public void checkCookieKeyAndValueWithResponseSpecification() {
         ResponseSpecification responseSpecification = new ResponseSpecBuilder().expectCookie("cookieKey").build();
 
@@ -194,21 +218,14 @@ public class PersonControllerTest {
     }
 
     @Test
-    public void checkHeaderKeyAndValue() {
-        given()
-                .get("/headerTest")
-                .then()
-                .assertThat()
-                .header("headerKey", is("headerValue"));
-    }
-
-    @Test
+    /*Using json path to get values in the json response*/
     public void getJsonForHey() {
         JsonPath jsonPath = get("/hey?name=magic").thenReturn().jsonPath();
         assertThat(jsonPath.get("name"), is("magic"));
     }
 
     @Test
+    /*Measuring response times in miliseconds*/
     public void shouldHaveResponseTimeLessThenExpectedResponseTime() {
         Response response = given().contentType("application/json")
                 .body(new Person("Password", 1234))
@@ -218,6 +235,7 @@ public class PersonControllerTest {
     }
 
     @Test
+    /*Measuring response times in seconds*/
     public void shouldHaveResponseTimeLessThenFiveSeconds() {
         given().contentType("application/json")
                 .body(new Person("Password", 1234))
@@ -229,6 +247,7 @@ public class PersonControllerTest {
     }
 
     @Test
+    /*Asserting on logs*/
     public void shouldGetLogs() {
         given().get("/hi/billy")
                 .then()

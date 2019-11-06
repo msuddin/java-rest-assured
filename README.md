@@ -14,6 +14,27 @@ To write a number of sample examples showing how to use REST Assured.
    - response times
    - log
 
+## Sample tests include
+ - Asserting on status code with simple get(), then()
+ - Passing in parameters using with()
+ - Passing in parameters using pathParam using given()
+ - Passing in parameters using queryParam using given()
+ - Extracting response as a string and asserting on it
+ - Setting contentType and setting body as part of given()
+ - Extracting a post and performing multiple assertions
+ - Performing json schema validation
+ - Asserting on arrays which are returned as part of a request
+ - Asserting on the content type and json parts individually
+ - Setting cookie and headers as part of the given()
+ - Asserting on cookies
+ - Asserting on headers
+ - Using request specification to build a spec for given()
+ - Using response specification to build a spec for then()
+ - Using json path to get values in the json response
+ - Measuring response times in miliseconds
+ - Measuring response times in seconds
+ - Asserting on logs
+
 ## Testing
 In the root directory, run the following command:
 ```
