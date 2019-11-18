@@ -8,6 +8,8 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -122,6 +124,24 @@ public class PersonControllerTest {
                 .then()
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("person.json"));
+    }
+
+    @Test
+    /*Building post body with JSONObject - order in JSON is not important*/
+    public void shouldValidatePersonEndpointWithJsonSchemaUsingJsonBuilder() throws JSONException {
+        String personPayload = new JSONObject()
+                .put("age", 36)
+                .put("name", "James Gorden")
+                .toString();
+
+        given()
+                .contentType("application/json")
+                .body(personPayload)
+                .post("/person")
+                .then()
+                .assertThat()
+                .body(matchesJsonSchemaInClasspath("person.json"))
+                .body("name", is("James Gorden"));
     }
 
     @Test
